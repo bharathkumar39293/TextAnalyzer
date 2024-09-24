@@ -1,94 +1,69 @@
-The goal of this coding exam is to quickly get you off the ground with **Conditional Rendering**.
+Text Analysis in JavaScript
+This JavaScript code is a simple text analysis tool that takes a block of text and provides the following statistics:
 
+Word Count: Total number of words in the text.
+Unique Word Count: Total number of unique words (case-insensitive).
+Character Count: Total number of characters, excluding spaces and punctuation.
+Features
+Custom Word Splitting: Words are extracted by splitting the text based on whitespace and cleaned to remove punctuation.
+Case-Insensitive Unique Word Count: Words are converted to lowercase to ensure that words like Hello and hello are treated as the same.
+Character Count: The number of word characters (letters, digits, underscores) is counted, excluding punctuation and spaces.
+No Use of .match(): The code avoids using JavaScript's .match() method and instead relies on .split() and iteration through the text.
+How It Works
+Splitting Text into Words:
 
-### Refer to the image below:
+The text is split into words using the .split() method with a regular expression to break the text by whitespace.
+Any empty results are filtered out.
+Cleaning and Normalizing Words:
 
-<br/>
-<div style="text-align: center;">
-    <img src="https://assets.ccbp.in/frontend/content/react-js/editable-text-input-output.gif" alt="editable-text-input" style="max-width:70%;box-shadow:0 2.8px 2.2px rgba(0, 0, 0, 0.12)">
-</div>
-<br/>
+Each word is cleaned by removing unwanted characters such as punctuation (!, .) while retaining valid characters like hyphens (-) and apostrophes (').
+All words are converted to lowercase to ensure case-insensitive comparisons.
+Unique Words:
 
+A Set object is used to store and count unique words. Since sets only store unique values, duplicates are automatically removed.
+Character Counting:
 
-### Design Files
+A simple loop iterates through each character in the text. Any character that is alphanumeric or an underscore is counted as a valid character, while spaces and punctuation are ignored.
+Code Example
+js
+Copy code
+const text = "Hello world! It's self-esteem or 123.";
 
-<details>
-<summary>Click to view</summary>
+// 1. Split the text into words using custom logic (split by spaces, punctuation, etc.)
+const words = text.split(/\s+/).filter(word => word.length > 0);
 
-- [Medium (Size >= 768px), Large (Size >= 992px) and Extra Large (Size >= 1200px) - Editing output](https://assets.ccbp.in/frontend/content/react-js/editable-text-input-lg-editing-output.png)
-- [Medium (Size >= 768px), Large (Size >= 992px) and Extra Large (Size >= 1200px) - Saved text output](https://assets.ccbp.in/frontend/content/react-js/editable-text-input-lg-saved-text-output.png)
+// 2. Clean each word (remove punctuation) and convert to lowercase for unique word counting
+const cleanedWords = words.map(word => {
+  return word.replace(/[^\w'-]/g, '').toLowerCase(); // Removes unwanted punctuation
+});
 
-</details>
+// 3. Count unique words using a Set
+const uniqueWords = new Set(cleanedWords);
 
-### Set Up Instructions
+// 4. Count characters (excluding spaces and punctuation)
+let charCount = 0;
+for (let i = 0; i < text.length; i++) {
+  if (/\w/.test(text[i])) { // \w matches alphanumeric characters and underscores
+    charCount++;
+  }
+}
 
-<details>
-<summary>Click to view</summary>
+console.log("Words:", cleanedWords);  // Words after cleanup
+console.log("Unique Words:", uniqueWords.size);  // Unique word count
+console.log("Character Count (excluding spaces/punctuation):", charCount);  // Character count
+Example Output
+For the text: "Hello world! It's self-esteem or 123.", the output will be:
 
-- Download dependencies by running `npm install`
-- Start up the app using `npm start`
-</details>
+sql
+Copy code
+Words: [ 'hello', 'world', "it's", 'self-esteem', 'or', '123' ]
+Unique Words: 5
+Character Count (excluding spaces/punctuation): 25
+Usage
+To use this code:
 
-### Completion Instructions
-
-<details>
-<summary>Functionality to be added</summary>
-<br/>
-
-The app must have the following functionalities
-
-- Initially, the user should see the input element and the`Save` button.
-- When the text is provided in the input element and the `Save` button is clicked
-  - The text should be displayed in the paragraph instead of the input element.
-  - The `Edit` button should be displayed.
-- When the text is saved and the `Edit` button is clicked
-  - The input element should be displayed with the value as text content of the HTML paragraph element.
-  - The `Save` button should be displayed.
-
-</details>
-
-
-
-### Important Note
-
-<details>
-<summary>Click to view</summary>
-
-<br/>
-
-**The following instructions are required for the tests to pass**
-
-- Use `styledComponents` for styling the elements
-
-</details>
-
-### Resources
-
-<details>
-<summary>Colors</summary>
-
-<br/>
-
-<div style="background-color: #000000; width: 150px; padding: 10px; color: white">Hex: #000000</div>
-<div style="background-color: #323f4b; width: 150px; padding: 10px; color: white">Hex: #323f4b</div>
-<div style="background-color: #f5d0fe; width: 150px; padding: 10px; color: black">Hex: #f5d0fe</div>
-<div style="background-color: #d946ef; width: 150px; padding: 10px; color: black">Hex: #d946ef</div>
-<div style="background-color: #ffffff; width: 150px; padding: 10px; color: black">Hex: #ffffff</div>
-<div style="background-color: #cbd2d9; width: 150px; padding: 10px; color: black">Hex: #cbd2d9</div>
-
-
-</details>
-
-<details>
-<summary>Font-families</summary>
-
-
-- Roboto
-
-</details>
-
-> ### _Things to Keep in Mind_
->
-> - All components you implement should go in the `src/components` directory.
-> - Don't change the component folder names as those are the files being imported into the tests.
-
+Clone the Repository: Download the repository and open the JavaScript file that contains this code.
+Run the Code: You can run this in a browser's developer console or in a Node.js environment.
+Modify the Input: Replace the text variable with any input string you want to analyze.
+Requirements
+JavaScript ES6+: The code uses modern JavaScript syntax (like const, let, arrow functions, and Set). Make sure you're using an ES6+ compatible environment.
